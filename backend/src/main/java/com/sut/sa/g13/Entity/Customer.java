@@ -30,8 +30,6 @@ public class Customer {
     private @NonNull String customername; //edit
     private @NonNull String address;
     private @NonNull String telephone;
-    private @NonNull String username;
-    private @NonNull String password;
 
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Gender.class)

@@ -3,9 +3,10 @@
     <v-layout text-center wrap>
       <v-flex mb-4>
         <br />
-        <h1 class="display-1 font-weight-bold mb-3">Reservation</h1>
+        <h1 class="display-1 font-weight-bold mb-3">ข้อมูลสมาชิก</h1>
       </v-flex>
     </v-layout>
+
     <v-row justify="center">
       <v-col cols="8">
         <v-data-table :headers="headers" :items="items" :items-per-page="5" class="elevation-1">
@@ -19,30 +20,41 @@
 import http from "../http-common";
 
 export default {
-  name: "viewReservation",
+  name: "ViewCustomer",
   data() {
     return {
-      headers: [
+       headers: [
+        {text: "Customer",value: "customername" },
         {
-          text: "ผู้ใช้บริการ",
+          text: "Gender",
           align: "left",
           sortable: false,
-          value: "customer.customername"
+          value: "genderid.sex"
         },
-        { text: "ID ผู้ใช้บริการ", value: "customer.customerid" },
-        { text: "สนามที่จอง", value: "fieldcategory.field" },
-        { text: "วันที่จอง", value: "reservedate" },
-        { text: "เวลาที่จอง", value: "timetable.timeString" },
-        { text: "ทำรายการโดย", value: "employee.employeename" }
-      ],
+        { text: "Address", value: "address" },
+        {
+          text: "Province",
+          align: "left",
+          sortable: false,
+          value: "provinceid.provincename"
+        },
+        { text: "Telephone", value: "telephone" },
+        {
+          text: "Category",
+          align: "left",
+          sortable: false,
+          value: "categoryid.type"
+        }
+       ],
       items: []
     };
   },
   methods: {
     /* eslint-disable no-console */
-    getReservations() {
+    // ดึงข้อมูล Customer ใส่ combobox
+    getCustomer() {
       http
-        .get("/reservation")
+        .get("/customer")
         .then(response => {
           this.items = response.data;
           console.log(this.items);
@@ -52,12 +64,12 @@ export default {
         });
     },
     refreshList() {
-      this.getReservations();
+      this.getCustomer();
     }
     /* eslint-disable no-console */
   },
   mounted() {
-    this.getReservations();
+    this.getCustomer();
   }
 };
 </script>

@@ -95,16 +95,14 @@ public class CustomerController {
     //     return register;
     // }
 
-    @PostMapping("/customer/{customername}/{genderid}/{address}/{provinceid}/{telephone}/{categoryid}/{username}/{password}")
+    @PostMapping("/customer/{customername}/{genderid}/{address}/{provinceid}/{telephone}/{categoryid}")
             public Customer newCustomer(Customer newCustomer,
                                     @PathVariable String customername, //edit
                                     @PathVariable Long genderid,
                                     @PathVariable String address,
                                     @PathVariable Long provinceid,
                                     @PathVariable String telephone,
-                                    @PathVariable Long categoryid, //edit
-                                    @PathVariable String username,
-                                    @PathVariable String password
+                                    @PathVariable Long categoryid //edit
 	                                ){
     
     Gender gender = genderRepository.findByGenderid(genderid);
@@ -117,8 +115,6 @@ public class CustomerController {
     newCustomer.setProvinceid(province);
     newCustomer.setTelephone(telephone);
     newCustomer.setCategoryid(category); //edit
-    newCustomer.setUsername(username);
-    newCustomer.setPassword(password);
 	    return customerRepository.save(newCustomer);
 	    
     }

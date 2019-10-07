@@ -1,11 +1,10 @@
 <template>
-<div class="bg">
-  <v-card style="width:50%; margin:auto; background-color:#FFFFFF">
   <v-container>
     <v-layout text-center wrap>
       <v-flex mb-4>
         <br />
-        <h1 class="display-2 font-weight-bold mb-3">แบบฟอร์มบันทึกการจองสนามกีฬา</h1>
+        <span class="mdi mdi-calendar mdi-48px "></span>
+        <h1 class="display-1 font-weight-bold mb-3">แบบฟอร์มบันทึกการจองสนามกีฬา</h1>
       </v-flex>
     </v-layout>
     
@@ -17,6 +16,7 @@
               <v-text-field
                 outlined
                 label="ID ผู้ใช้บริการ"
+                prepend-icon= "mdi mdi-account"
                 v-model="reservation.customerId"
                 :rules="[(v) => !!v || 'Item is required']"
                 required
@@ -34,6 +34,7 @@
               <v-col cols="10">
                 <v-select
                   label="พนักงานที่ทำรายการ"
+                  prepend-icon= "mdi mdi-account-card-details"
                   outlined
                   v-model="reservation.employeeId"
                   :items="employee"
@@ -49,6 +50,7 @@
               <v-col cols="10">
                 <v-select
                   label="เลือกประเภทสนาม"
+                  prepend-icon= "mdi mdi-football"
                   outlined
                   v-model="reservation.fieldcategoryId"
                   :items="fieldCategory"
@@ -71,6 +73,7 @@
                 >
         <template v-slot:activator="{ on }">
           <v-text-field style= "width:82%"
+            prepend-icon= "mdi mdi-calendar"
             v-model="date"
             label="เลือกวันที่จองสนาม"
             outlined
@@ -88,6 +91,7 @@
                 <v-select
                   label="เลือกเวลาจองสนาม"
                   outlined
+                  prepend-icon= "mdi mdi-clock"
                   v-model="reservation.timetableId"
                   :items="timeTable"
                   item-text="timeString"
@@ -98,21 +102,23 @@
                 ></v-select>
               </v-col>
             </v-row>
+            
             <v-row justify="center">
               <v-col cols="10">
-                <v-btn @click="saveReservation" style="color:#FFFFFF" :class="{ black: !valid, green: valid } ">บันทึก</v-btn>
-                <v-btn @click="clear" color="#000000" style="margin-left: 15px; color:#FFFFFF">ยกเลิก</v-btn>
-                <v-btn @click="viewReserve" color="#000000" style="color:#FFFFFF">ดูบันทึก</v-btn>
+                <v-btn-toggle group >
+                  <v-btn @click="saveReservation" style="color:#FFFFFF" :class="{ black: !valid, green: valid } ">บันทึก</v-btn>
+                  <v-btn @click="clear" color="#D50000" style="color:#FFFFFF">ยกเลิก</v-btn>
+                  <v-btn @click="viewReserve" color="#000000" style="color:#FFFFFF">ดูบันทึก</v-btn>
+                </v-btn-toggle>
               </v-col>
             </v-row>
+            
             <br />
         </v-form>
       </v-col>
       
     </v-row>
   </v-container>
-  </v-card>
-  </div>
 </template>
 
 <script>
@@ -217,8 +223,10 @@ export default {
     },
     clear() {
       this.$refs.form.reset();
-      this.customerCheck = false;
+     
+     this.customerCheck = false;
     },
+
     refreshList() {
       this.fieldCategory();
       this.timeTable();
