@@ -16,7 +16,7 @@
       </v-row>
   </v-app-bar> 
      <v-content>
-    <v-card style="width:50%; margin:auto; background-color:#FFFFFF">
+    <v-card style="width:70%; margin:auto; background-color:#FFFFFF">
       <router-view />
     </v-card>
     </v-content>

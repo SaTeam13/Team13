@@ -1,22 +1,18 @@
 package com.sut.sa.g13.Controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-
 import java.util.Collection;
-
-
 import java.util.stream.Collectors;
-
 import java.util.Date;
-
+import java.util.Optional;
 import com.sut.sa.g13.Entity.Customer;
 import com.sut.sa.g13.Entity.Employee;
 import com.sut.sa.g13.Entity.TimeTable;
@@ -27,8 +23,6 @@ import com.sut.sa.g13.Repository.EmployeeRepository;
 import com.sut.sa.g13.Repository.TimeTableRepository;
 import com.sut.sa.g13.Repository.ReservationRepository;
 import com.sut.sa.g13.Repository.FieldCategoryRepository;
-
-import org.springframework.web.bind.annotation.CrossOrigin;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
@@ -64,6 +58,11 @@ this.employeeRepository = employeeRepository;
     public Collection<Reservation> Reservations() {
         return reservationRepository.findAll().stream().collect(Collectors.toList());
     }
+    @GetMapping("/reservation/{id}")
+    public Optional<Reservation> Reservations(@PathVariable Long id) {
+        Optional<Reservation> reservation = reservationRepository.findById(id);
+        return reservation;
+    }
 
     @GetMapping("/fieldcate")
     public Collection<FieldCategory> FieldCategories() {
@@ -74,6 +73,14 @@ this.employeeRepository = employeeRepository;
     public Collection<TimeTable> TimeTables() {
         return timetableRepository.findAll().stream().collect(Collectors.toList());
     }
+    @DeleteMapping("/reservation/{id}")
+	public ResponseEntity<String> deleteReservation(@PathVariable("id") long id) {
+		System.out.println("Delete Reservation with ID = " + id + "...");
+
+		reservationRepository.deleteById(id);
+
+		return new ResponseEntity<>("Reservation has been deleted!", HttpStatus.OK);
+	}
 
     @PostMapping("/reservation/{customer_id}/{fieldcate_id}/{timetable_id}/{employee_id}/{date}")
     public Reservation newReservation(Reservation newReservation,
@@ -87,7 +94,7 @@ this.employeeRepository = employeeRepository;
     Customer customer = customerRepository.findByCustomerid(customer_id);
     FieldCategory fieldcategory = fieldcategoryRepository.findByFieldid(fieldcate_id);
     TimeTable timetable = timetableRepository.findByTimetableid(timetable_id);
-    Employee employee = employeeRepository.findByEmployeeid(timetable_id);
+    Employee employee = employeeRepository.findByEmployeeid(employee_id);
 
         DateFormat newDate = new SimpleDateFormat("yyyy-MM-dd");
         Date d = newDate.parse(date); 

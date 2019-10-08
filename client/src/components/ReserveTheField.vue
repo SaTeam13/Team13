@@ -112,11 +112,9 @@
                 </v-btn-toggle>
               </v-col>
             </v-row>
-            
             <br />
         </v-form>
       </v-col>
-      
     </v-row>
   </v-container>
 </template>
@@ -132,19 +130,18 @@ export default {
       date: new Date().toISOString().substr(0, 10),
       menu: false,
        reservation: {
-        customerId: "",
-        fieldcategoryId: "",
-        timetableId: "",
-        employeeId: ""
+        customerId: null,
+        fieldcategoryId: null,
+        timetableId: null,
+        employeeId: null
       },
       valid: false,
       customerCheck: false,
-      customerName: "",
+      customerName: null,
     }
   },
   methods: {
     /* eslint-disable no-console */
-
     fieldCategory(){
       http
         .get("/fieldcate")
@@ -211,12 +208,14 @@ export default {
         )
         .then(response => {
           console.log(response);
+          alert("บันทึกสำเร็จ");
           this.$router.push("/viewreserve");
         })
         .catch(e => {
           console.log(e);
         });
       this.submitted = true;
+
     },
     viewReserve(){
       this.$router.push("/viewreserve");

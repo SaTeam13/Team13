@@ -12,6 +12,7 @@
         </v-data-table>
       </v-col>
     </v-row>
+
     <v-row justify="center">
             <v-col cols="3">
               <v-text-field
@@ -25,15 +26,17 @@
               </p>
             </v-col>
             <v-col cols="2">
-              <div class="mx-5">
+              <div class="my-2; mx-5">
                 <v-btn @click="findReservation" depressed large color="#000000" style="color:#FFFFFF;margin-bottom:20px">ยืนยัน</v-btn>
               </div>
             </v-col>
           </v-row>
   </v-container>
 </template>
+
 <script>
 import http from "../http-common";
+
 export default {
   name: "viewReservation",
   data() {
@@ -54,11 +57,11 @@ export default {
       ],
       items: [],
        reservation: {
-        reservationId: null,
+        reservationId: "",
       },
       valid: false,
       reservationCheck: false,
-      reservationId: null,
+      reservationId: "",
     };
   },
   methods: {
