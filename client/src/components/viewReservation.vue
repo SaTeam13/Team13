@@ -7,26 +7,34 @@
       </v-flex>
     </v-layout>
     <v-row justify="center">
-      <v-col cols="10">
-        <v-data-table :headers="headers" :items="items" :items-per-page="5" class="elevation-1">
+      
+        <v-col cols="5">
+        <v-text-field v-model="search"
+          label="ค้นหา"
+          prepend-icon= "mdi mdi-file-find"
+          outlined hide-details
+        ></v-text-field>
+        </v-col>
+        <v-col cols="10">
+        <v-data-table :headers="headers" :items="items" :items-per-page="5" class="elevation-1" :search="search">
         </v-data-table>
-      </v-col>
-    </v-row>
-    <v-row justify="center">
+        </v-col>
+    
+ 
             <v-col cols="3">
               <v-text-field
                 outlined
-                label="ต้องการลบ ID: "
+                label="ต้องการลบ ID การจองที่: "
+                prepend-icon= "mdi mdi-delete-forever"
                 v-model="reservation.reservationId"
-                required
               ></v-text-field>
               <p v-if="reservationCheck != ''">ID การจองที่จะทำการลบ : {{reservationId}}
-                <v-btn class="mx-8" @click="deleteReservation" color="#D50000" style="color:#FFFFFF" >ลบ</v-btn>
+                <v-btn class="" @click="deleteReservation" color="#D50000" style="color:#FFFFFF" >ลบ</v-btn>
               </p>
             </v-col>
             <v-col cols="2">
-              <div class="mx-5">
-                <v-btn @click="findReservation" depressed large color="#000000" style="color:#FFFFFF;margin-bottom:20px">ยืนยัน</v-btn>
+              <div class="">
+                <v-btn @click="findReservation" depressed large color="#000000" style="color:#FFFFFF;">ยืนยัน</v-btn>
               </div>
             </v-col>
           </v-row>
@@ -38,6 +46,7 @@ export default {
   name: "viewReservation",
   data() {
     return {
+      search: '',
       headers: [
         {
           text: "ผู้ใช้บริการ",

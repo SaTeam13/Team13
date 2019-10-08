@@ -6,12 +6,17 @@ import Borrow from '../components/Borrow';
 import Customer from '../components/Customer';
 import ViewCustomer from '../components/ViewCustomer';
 import Employee from '../components/Employee';
+import Login from '../components/Login';
 Vue.use(router);
 
 export default new router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [{
+        path: '/',
+        component: Login
+        },
+        {
             path: '/borrow',
             component: Borrow
         },
