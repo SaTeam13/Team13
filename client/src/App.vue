@@ -11,6 +11,7 @@
       <v-btn @click="Borrow" color="#000000" style="color:#FFFFFF">ยืมอุปกรณ์</v-btn>
       <v-btn @click="Customer" color="#000000" style="color:#FFFFFF">สมัครสมาชิก</v-btn>
       <v-btn @click="Employee" color="#000000" style="color:#FFFFFF">ข้อมูลพนักงาน</v-btn>
+      <v-btn @click="Payment" color="#000000" style="color:#FFFFFF">ชำระเงินค่าสมาชิก</v-btn>
       </v-btn-toggle>
       
       </v-row>
@@ -39,6 +40,9 @@
     },
   Employee(){
       this.$router.push("/employee");
+    },
+  Payment(){
+      this.$router.push("/paymentmember");
     },
     },
 };

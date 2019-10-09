@@ -162,8 +162,7 @@ export default {
         employee: null,
         sportEquipment: null,
         typeEquipment: null,
-        
-       
+        valid: false,
         };
   },
 

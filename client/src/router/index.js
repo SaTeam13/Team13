@@ -4,9 +4,11 @@ import viewReservation from '../components/viewReservation';
 import reserveTheField from '../components/ReserveTheField';
 import Borrow from '../components/Borrow';
 import Customer from '../components/Customer';
-import ViewCustomer from '../components/ViewCustomer';
+import viewCustomer from '../components/viewCustomer';
 import Employee from '../components/Employee';
 import Login from '../components/Login';
+import PaymentMember from '../components/PaymentMember';
+import viewPayment from '../components/viewPayment';
 Vue.use(router);
 
 export default new router({
@@ -34,11 +36,19 @@ export default new router({
         },
         {
             path: '/viewcustomer',
-            component: ViewCustomer
+            component: viewCustomer
         },
         {
             path: '/employee',
             component: Employee
+        },
+        {
+            path: '/paymentmember',
+            component: PaymentMember
+        },
+        {
+            path: '/viewpayment',
+            component: viewPayment
         },
         
     ]

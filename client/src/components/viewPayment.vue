@@ -3,7 +3,7 @@
     <v-layout text-center wrap>
       <v-flex mb-4>
         <br />
-        <h1 class="display-1 font-weight-bold mb-3">Reservation</h1>
+        <h1 class="display-1 font-weight-bold mb-3">Payment</h1>
       </v-flex>
     </v-layout>
     <v-row justify="center">
@@ -29,12 +29,12 @@
                 v-model="reservation.reservationId"
               ></v-text-field>
               <p v-if="reservationCheck != ''">ID การจองที่จะทำการลบ : {{reservationId}}
-                <v-btn class="" @click="deleteReservation" color="#D50000" style="color:#FFFFFF" >ยืนยัน</v-btn>
+                <v-btn class="" @click="deleteReservation" color="#D50000" style="color:#FFFFFF" >ลบ</v-btn>
               </p>
             </v-col>
             <v-col cols="2">
               <div class="">
-                <v-btn @click="findReservation" depressed large color="#000000" style="color:#FFFFFF;">ลบ</v-btn>
+                <v-btn @click="findReservation" depressed large color="#000000" style="color:#FFFFFF;">ยืนยัน</v-btn>
               </div>
             </v-col>
           </v-row>
@@ -43,7 +43,7 @@
 <script>
 import http from "../http-common";
 export default {
-  name: "viewReservation",
+  name: "viewPayment",
   data() {
     return {
       search: '',
