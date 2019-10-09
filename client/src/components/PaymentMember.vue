@@ -54,7 +54,7 @@
                   outlined
                   v-model="payment.customertypeId"
                   :items="customerType"
-                  item-text="price"
+                  item-text="customertypename"
                   item-value="customertypeid"
                   :rules="[(v) => !!v || 'Item is required']"
                   required
@@ -71,7 +71,7 @@
                   prepend-icon= "mdi mdi-clock"
                   v-model="payment.timerangeId"
                   :items="timeRange"
-                  item-text="time"
+                  item-text="timerangename"
                   item-value="timerangeid"
                   :rules="[(v) => !!v || 'Item is required']"
                   required
@@ -116,9 +116,6 @@ export default {
       valid: false,
       customerCheck: false,
       customerName: null,
-      cusprice: null,
-      time:null,
-      Total:0,
     }
   },
   methods: {
@@ -183,21 +180,18 @@ export default {
             "/" +
             this.payment.customertypeId +
             "/" +
-            this.payment.timerangeId +
-            "/" +
-            this.Total,
+            this.payment.timerangeId,
           this.payment
         )
         .then(response => {
           console.log(response);
           alert("ทำรายการสำเร็จ");
-          //this.$router.push("/viewreserve");
+          this.$router.push("/viewpayment");
         })
         .catch(e => {
           console.log(e);
         });
       this.submitted = true;
-
     },
     viewReserve(){
       this.$router.push("/viewpayment");

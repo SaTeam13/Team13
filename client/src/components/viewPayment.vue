@@ -15,7 +15,7 @@
           outlined hide-details
         ></v-text-field>
         </v-col>
-        <v-col cols="10">
+        <v-col cols="11">
         <v-data-table :headers="headers" :items="items" :items-per-page="5" class="elevation-1" :search="search">
         </v-data-table>
         </v-col>
@@ -24,17 +24,17 @@
             <v-col cols="3">
               <v-text-field
                 outlined
-                label="ต้องการลบ ID การจองที่: "
+                label="ต้องการลบ Payment ID: "
                 prepend-icon= "mdi mdi-delete-forever"
-                v-model="reservation.reservationId"
+                v-model="payment.paymentId"
               ></v-text-field>
-              <p v-if="reservationCheck != ''">ID การจองที่จะทำการลบ : {{reservationId}}
-                <v-btn class="" @click="deleteReservation" color="#D50000" style="color:#FFFFFF" >ลบ</v-btn>
+              <p v-if="paymentCheck != ''">ID Payment ที่ต้องการลบ : {{paymentId}}
+                <v-btn class="" @click="deletePayments" color="#D50000" style="color:#FFFFFF" >ลบ</v-btn>
               </p>
             </v-col>
             <v-col cols="2">
               <div class="">
-                <v-btn @click="findReservation" depressed large color="#000000" style="color:#FFFFFF;">ยืนยัน</v-btn>
+                <v-btn @click="findPayments" depressed large color="#000000" style="color:#FFFFFF;">ยืนยัน</v-btn>
               </div>
             </v-col>
           </v-row>
@@ -48,33 +48,36 @@ export default {
     return {
       search: '',
       headers: [
+        
         {
-          text: "ผู้ใช้บริการ",
+          text: "Payment ID",
           align: "left",
           sortable: false,
-          value: "customer.customername"
+          value: "paymentid"
+
         },
-        { text: "ID ผู้ใช้บริการ", value: "customer.customerid" },
-        { text: "สนามที่จอง", value: "fieldcategory.field" },
-        { text: "วันที่จอง", value: "reservedate" },
-        { text: "เวลาที่จอง", value: "timetable.timeString" },
-        { text: "ทำรายการโดย", value: "employee.employeename" },
-        { text: "ID การจอง", value: "reservationid" },
+        { text: "ชื่อผู้ใช้บริการ", value: "customerid.customername" },
+        { text: "ID ผู้ใช้บริการ", value: "customerid.customerid" },
+        { text: "ประเภทลูกค้า", value: "customertypeid.customertypename" },
+        { text: "วันที่ทำรายการ", value: "payDate" },
+        { text: "ช่วงระยะเวลา", value: "timerangeid.timerangename" },
+        { text: "ทำรายการโดย", value: "employeeid.employeename" },
+        
       ],
       items: [],
-       reservation: {
-        reservationId: null,
+       payment: {
+        paymentId: null,
       },
       valid: false,
-      reservationCheck: false,
-      reservationId: null,
+      paymentCheck: false,
+      paymentId: null,
     };
   },
   methods: {
     /* eslint-disable no-console */
-    getReservations() {
+    getPayments() {
       http
-        .get("/reservation")
+        .get("/paymentmember")
         .then(response => {
           this.items = response.data;
           console.log(this.items);
@@ -83,14 +86,14 @@ export default {
           console.log(e);
         });
     },
-    findReservation() {
+    findPayments() {
       http
-        .get("/reservation/" + this.reservation.reservationId)
+        .get("/paymentmember/" + this.payment.paymentId)
         .then(response => {
           console.log(response);
           if (response.data != null) {
-            this.reservationId = response.data.reservationid;
-            this.reservationCheck = response.status;
+            this.paymentId = response.data.paymentid;
+            this.paymentCheck = response.status;
           } else {
             this.clear()
           }          
@@ -100,13 +103,13 @@ export default {
         });
       this.submitted = true;
     },
-    deleteReservation() {
+    deletePayments() {
       http
-        .delete("/reservation/" + this.reservation.reservationId)
+        .delete("/paymentmember/" + this.payment.paymentId)
         .then(response => {
           console.log(response.data);
           this.$emit("refreshData");
-          alert("ทำการลบรายการจองเรียบร้อย");
+          alert("ทำการลบรายการชำระเงินเรียบร้อย");
           location.reload();
         })
         .catch(e => {
@@ -114,12 +117,12 @@ export default {
         });
     },
     refreshList() {
-      this.getReservations();
+      this.getPayments();
     }
     /* eslint-disable no-console */
   },
   mounted() {
-    this.getReservations();
+    this.getPayments();
   }
 };
 </script>

@@ -6,9 +6,9 @@ import Borrow from '../components/Borrow';
 import Customer from '../components/Customer';
 import viewCustomer from '../components/viewCustomer';
 import Employee from '../components/Employee';
-import Login from '../components/Login';
 import PaymentMember from '../components/PaymentMember';
 import viewPayment from '../components/viewPayment';
+import Login from '../components/Login';
 Vue.use(router);
 
 export default new router({

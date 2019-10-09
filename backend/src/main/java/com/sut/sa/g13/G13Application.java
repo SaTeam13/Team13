@@ -7,18 +7,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.CrossOrigin;
+
 
 import java.util.stream.Stream;
-import java.util.Collection;
-import java.util.Date;
-import java.sql.Timestamp;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
-import java.text.ParseException;
 
 @SpringBootApplication
 public class G13Application {
@@ -34,7 +25,7 @@ public class G13Application {
 							TimeTableRepository timetableRepository, ReservationRepository reservationRepository,
 							StatusRepository statusRepository, TypeEquipmentRepository typeEquipmentRepository,
 							SportEquipmentRepository sportEquipmentRepository, 
-							BorrowRepository borrowRepository) {
+							BorrowRepository borrowRepository,CustomerTypeRepository customerTypeRepository ,TimeRangeRepository timeRangeRepository) {
 		return args -> {
 
 			//===========================================Shompoo=================================================
@@ -168,6 +159,22 @@ public class G13Application {
 
 			//===========================================Benz=================================================
 
+			Stream.of("Normal (1,200 บาท)","Gold (1,500 บาท)","Platinum (2,000 บาท)","Premuim (2,300 บาท)").forEach(customertypename -> {
+				CustomerType customertype = new CustomerType();
+				customertype.setCustomertypename(customertypename);
+				customerTypeRepository.save(customertype);
+			
+			});
+
+			Stream.of("1 month","3 months","5 months","1 year").forEach(timerangename -> {
+				TimeRange timerange = new TimeRange();
+				timerange.setTimerangename(timerangename);
+				timeRangeRepository.save(timerange);
+			
+			});
+
+			customerTypeRepository.findAll().forEach(System.out::println);
+			timeRangeRepository.findAll().forEach(System.out::println);
 
 		};
 	}

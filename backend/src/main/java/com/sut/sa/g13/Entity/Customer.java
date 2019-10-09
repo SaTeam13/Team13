@@ -10,7 +10,6 @@ import javax.persistence.FetchType;
 
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.sound.sampled.DataLine;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
