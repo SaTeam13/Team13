@@ -36,8 +36,8 @@
                   label="พนักงานที่ทำรายการ"
                   prepend-icon= "mdi mdi-account-card-details"
                   outlined
-                  v-model="reservation.employeeId"
-                  :items="employee"
+                  v-model="reservation.employees"
+                  :items="employees"
                   item-text="employeename"
                   item-value="employeeid"
                   :rules="[(v) => !!v || 'Item is required']"
@@ -52,8 +52,8 @@
                   label="เลือกประเภทสนาม"
                   prepend-icon= "mdi mdi-football"
                   outlined
-                  v-model="reservation.fieldcategoryId"
-                  :items="fieldCategory"
+                  v-model="reservation.fieldCategorys"
+                  :items="fieldCategorys"
                   item-text="field"
                   item-value="fieldid"
                   :rules="[(v) => !!v || 'Item is required']"
@@ -92,8 +92,8 @@
                   label="เลือกเวลาจองสนาม"
                   outlined
                   prepend-icon= "mdi mdi-clock"
-                  v-model="reservation.timetableId"
-                  :items="timeTable"
+                  v-model="reservation.timeTables"
+                  :items="timeTables"
                   item-text="timeString"
                   item-value="timetableid"
                   :rules="[(v) => !!v || 'Item is required']"
@@ -131,10 +131,13 @@ export default {
       menu: false,
        reservation: {
         customerId: null,
-        fieldcategoryId: null,
-        timetableId: null,
-        employeeId: null
+        fieldCategorys: null,
+        timeTables: null,
+        employees: null
       },
+      fieldCategorys: null,
+      timeTables: null,
+      employees: null,
       valid: false,
       customerCheck: false,
       customerName: null,
@@ -142,33 +145,36 @@ export default {
   },
   methods: {
     /* eslint-disable no-console */
-    fieldCategory(){
+     // ดึงข้อมูล fieldCategory ใส่ combobox
+    getFieldCategorys(){
       http
         .get("/fieldcate")
         .then(response =>{
-            this.fieldCategory = response.data;
+            this.fieldCategorys = response.data;
             console.log(response.data)
         })
         .catch(e => {
             console.log(e);
         })
     },
-    employee(){
+     // ดึงข้อมูล employee ใส่ combobox
+    getEmployees(){
       http
         .get("/employee")
-        .then(response =>{
-            this.employee = response.data;
-            console.log(response.data)
+        .then(response => {
+          this.employees = response.data;
+          console.log(response.data);
         })
-        .catch(e => {
-            console.log(e);
+        .catch(e =>{
+          console.log(e);
         })
     },
-    timeTable() {
+     // ดึงข้อมูล timeTable ใส่ combobox
+    getTimeTables() {
       http
         .get("/timetable")
         .then(response => {
-          this.timeTable = response.data;
+          this.timeTables = response.data;
           console.log(response.data);
         })
         .catch(e => {
@@ -197,11 +203,11 @@ export default {
         .post("/reservation/" +
             this.reservation.customerId +
             "/" +
-            this.reservation.fieldcategoryId +
+            this.reservation.fieldCategorys +
             "/" +
-            this.reservation.timetableId +
+            this.reservation.timeTables +
             "/" +
-            this.reservation.employeeId +
+            this.reservation.employees +
             "/" +
              this.date,
           this.reservation
@@ -227,16 +233,16 @@ export default {
     },
 
     refreshList() {
-      this.fieldCategory();
-      this.timeTable();
-      this.employee();
+      this.getFieldCategorys();
+      this.getTimeTables();
+      this.getEmployees();
     }
     /* eslint-enable no-console */
   },
   mounted() {
-      this.fieldCategory();
-      this.timeTable();
-      this.employee();
+      this.getFieldCategorys();
+      this.getTimeTables();
+      this.getEmployees();
   }
 }
 </script>

@@ -171,7 +171,7 @@ export default {
   methods: {
     
      /* eslint-disable no-console */
-
+        // ดึงข้อมูล employee ใส่ combobox
          getemployee() {
       http
         .get("/employee")
@@ -208,7 +208,7 @@ export default {
           console.log(e);
         });
     },
-        // ดึงข้อมูล employee ใส่ combobox
+        
 
   
   ///Borrow/{nameborrow}/{numberequipment}/{empselect}/{eqmselect}/{typeeqmselect}
