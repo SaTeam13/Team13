@@ -25,21 +25,17 @@ public class PaymentMember {
     @SequenceGenerator(name="PaymentMember_seq",sequenceName="PaymentMember_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator="PaymentMember_seq")
     @Column(name = "PAYMENTMEMBER_ID", unique = true, nullable = true)
-    
     private @NonNull Long paymentid;
+    
     @Temporal(TemporalType.DATE)
     @Column(name="PAY_DATE")
     private @NonNull Date payDate;
-    
+   
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Customer.class)
     @JoinColumn(name = "CUSTOMER_ID", insertable = true)
     private Customer customerid; //edit
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
-    @JoinColumn(name = "EMPLOYEE_ID", insertable = true)
-    private Employee employeeid; //edit
     
-  
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = CustomerType.class)
     @JoinColumn(name = "CUSTOMER_TYPE", insertable = true)
     private CustomerType customertypeid; //edit
@@ -48,5 +44,12 @@ public class PaymentMember {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = TimeRange.class)
     @JoinColumn(name = "TIME_RANGE", insertable = true)
     private TimeRange timerangeid;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
+    @JoinColumn(name = "EMPLOYEE_ID", insertable = true)
+    private Employee employeeid; //edit
+
+   
+
 }
 

@@ -14,7 +14,7 @@
           <v-row justify="center">
             <v-col cols="10">
               <v-text-field
-                outlined
+                clearable
                 label="ID ผู้ใช้บริการ"
                 prepend-icon= "mdi mdi-account"
                 v-model="reservation.customerId"
@@ -25,7 +25,7 @@
             </v-col>
             <v-col cols="2">
               <div class="my-2">
-                <v-btn @click="findCustomer" depressed large color="#000000" style="color:#FFFFFF">ยืนยัน</v-btn>
+                <v-btn @click="findCustomer" depressed large color="#00E676" style="color:#000000">ยืนยัน</v-btn>
               </div>
             </v-col>
           </v-row>
@@ -35,7 +35,7 @@
                 <v-select
                   label="พนักงานที่ทำรายการ"
                   prepend-icon= "mdi mdi-account-card-details"
-                  outlined
+                  clearable
                   v-model="reservation.employees"
                   :items="employees"
                   item-text="employeename"
@@ -51,7 +51,7 @@
                 <v-select
                   label="เลือกประเภทสนาม"
                   prepend-icon= "mdi mdi-football"
-                  outlined
+                  clearable
                   v-model="reservation.fieldCategorys"
                   :items="fieldCategorys"
                   item-text="field"
@@ -76,7 +76,7 @@
             prepend-icon= "mdi mdi-calendar"
             v-model="date"
             label="เลือกวันที่จองสนาม"
-            outlined
+            clearable
             readonly
             v-on="on"
           ></v-text-field>
@@ -90,7 +90,7 @@
               <v-col cols="10">
                 <v-select
                   label="เลือกเวลาจองสนาม"
-                  outlined
+                  clearable
                   prepend-icon= "mdi mdi-clock"
                   v-model="reservation.timeTables"
                   :items="timeTables"
@@ -106,7 +106,7 @@
             <v-row justify="center">
               <v-col cols="10">
                 <v-btn-toggle group >
-                  <v-btn @click="saveReservation" style="color:#FFFFFF" :class="{ black: !valid, green: valid } ">บันทึก</v-btn>
+                  <v-btn @click="saveReservation" style="color:#FFFFFF" :class="{ red: !valid, green: valid } ">บันทึก</v-btn>
                   <v-btn @click="clear" color="#D50000" style="color:#FFFFFF">ยกเลิก</v-btn>
                   <v-btn @click="viewReserve" color="#000000" style="color:#FFFFFF">ดูบันทึก</v-btn>
                 </v-btn-toggle>

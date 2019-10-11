@@ -3,15 +3,15 @@
   <div class="bg"> 
   <v-app-bar style = "background: white;" app>
       <v-toolbar-title  class="headline text-uppercase" >
-        <span class="font-weight-light">SportStaduim</span>   
+        <span class="font-weight">SportStaduim</span>   
       </v-toolbar-title>
-      <v-row justify="center">
+      <v-row justify="center" style="margin-right:190px">
       <v-btn-toggle group>
-      <v-btn @click="Reserve" color="#000000" style="color:#FFFFFF">จองสนาม</v-btn>
-      <v-btn @click="Borrow" color="#000000" style="color:#FFFFFF">ยืมอุปกรณ์</v-btn>
-      <v-btn @click="Customer" color="#000000" style="color:#FFFFFF">สมัครสมาชิก</v-btn>
-      <v-btn @click="Employee" color="#000000" style="color:#FFFFFF">ข้อมูลพนักงาน</v-btn>
-      <v-btn @click="Payment" color="#000000" style="color:#FFFFFF">ชำระเงินค่าสมาชิก</v-btn>
+      <v-btn @click="Reserve" color="#00E676" style="color:#000000">จองสนาม</v-btn>
+      <v-btn @click="Borrow" color="#76FF03" style="color:#000000">ยืมอุปกรณ์</v-btn>
+      <v-btn @click="Customer" color="#00E676" style="color:#000000">สมัครสมาชิก</v-btn>
+      <v-btn @click="Employee" color="#76FF03" style="color:#000000">ข้อมูลพนักงาน</v-btn>
+      <v-btn @click="Payment" color="#00E676" style="color:#000000">ชำระเงินค่าสมาชิก</v-btn>
       </v-btn-toggle>
       
       </v-row>

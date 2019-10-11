@@ -1,29 +1,21 @@
 package com.sut.sa.g13.Controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JsonParseException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
-import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.net.URLDecoder;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.text.DateFormat;
 
 import com.sut.sa.g13.Entity.Customer;
 import com.sut.sa.g13.Entity.Employee;
@@ -35,9 +27,6 @@ import com.sut.sa.g13.Repository.EmployeeRepository;
 import com.sut.sa.g13.Repository.CustomerTypeRepository;
 import com.sut.sa.g13.Repository.PaymentMemberRepository;
 import com.sut.sa.g13.Repository.TimeRangeRepository;
-
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
@@ -62,18 +51,15 @@ public class PaymentMemberController {
         this.customertypeRepository = customertypeRepository;
         this.timerangeRepository =  timerangeRepository;
     }
-   
     @GetMapping("/paymentmember")
     public Collection <PaymentMember>  PaymentMembers() {
         return paymentmemberRepository.findAll().stream().collect(Collectors.toList());
     }
-
     @GetMapping("/paymentmember/{id}")
     public Optional<PaymentMember> PaymentMembers(@PathVariable Long id) {
         Optional<PaymentMember> payment = paymentmemberRepository.findById(id);
         return payment;
     }
-
     @GetMapping("/customertype")
     public Collection<CustomerType> Customertypes() {
         return customertypeRepository.findAll().stream().collect(Collectors.toList());
@@ -83,7 +69,6 @@ public class PaymentMemberController {
         Optional<CustomerType> customerType = customertypeRepository.findById(id);
         return customerType;
     }
-
     @GetMapping("/timerange")
     public Collection<TimeRange> Timerange() {
         return timerangeRepository.findAll().stream().collect(Collectors.toList());
@@ -93,9 +78,8 @@ public class PaymentMemberController {
         Optional<TimeRange> timeRange = timerangeRepository.findById(timeid);
         return timeRange;
     }
-
     @DeleteMapping("/paymentmember/{id}")
-	public ResponseEntity<String> deleteReservation(@PathVariable("id") long id) {
+	public ResponseEntity<String> deletePaymentMembers(@PathVariable("id") long id) {
 		System.out.println("Delete Payment with ID = " + id + "...");
         
         paymentmemberRepository.deleteById(id);

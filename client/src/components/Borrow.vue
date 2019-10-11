@@ -121,7 +121,7 @@
                 :rules="[(v) => !!v || 'กรุณากรอกเลือกข้อมูล']"
                 required
                 style="margin-top: -30px;"
-                prepend-icon="mdi mdi-account-multiple-outline"
+                prepend-icon="mdi mdi-account-card-details"
               ></v-select>
              </v-col>
           </v-row>

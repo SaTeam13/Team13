@@ -3,8 +3,8 @@
     <v-layout text-center wrap>
       <v-flex mb-4>
         <br />
-        <span class="mdi mdi-account mdi-48px "></span>
-        <h1 class="display-1 font-weight-bold mb-3">แบบฟอร์มการชำระเงินค่าสมาชิก</h1>
+        <img src="https://img.icons8.com/ios/96/000000/wallet.png">
+        <h1 class="display-1 font-weight-bold mb-3">ชำระเงินค่าสมาชิก</h1>
       </v-flex>
     </v-layout>
     
@@ -21,11 +21,21 @@
                 :rules="[(v) => !!v || 'Item is required']"
                 required
               ></v-text-field>
-              <p v-if="customerCheck != ''">ยินดีตอนรับคุณ : {{customerName}}</p>
+              
+              <p v-if="customerCheck != ''"> 
+                <v-row justify="center">
+                <MARQUEE behavior=alternate direction=left scrollAmount=3 width="4%"><font face=Webdings>3</font>
+                </MARQUEE><MARQUEE scrollAmount=1 direction=left width="2%">
+                  | | |</MARQUEE>ยินดีตอนรับคุณ :<b>{{ customerName}}</b><MARQUEE scrollAmount=1 direction=right width="2%">
+                  | | |</MARQUEE><MARQUEE behavior=alternate direction=right scrollAmount=3 width="4%">
+                  <font face=Webdings>4</font></MARQUEE>
+                  </v-row>
+               </p>
             </v-col>
+
             <v-col cols="2">
               <div class="my-2">
-                <v-btn @click="findCustomer" depressed large color="#000000" style="color:#FFFFFF">ยืนยัน</v-btn>
+                <v-btn @click="findCustomer" depressed large color="#009900" style="color:#FFFFFF">ค้นหา</v-btn>
               </div>
             </v-col>
           </v-row>
@@ -34,7 +44,7 @@
               <v-col cols="10">
                 <v-select
                   label="พนักงานที่ทำรายการ"
-                  prepend-icon= "mdi mdi-account-card-details"
+                  prepend-icon= "mdi-account-edit"
                   outlined
                   v-model="payment.employeeId"
                   :items="employee"
@@ -49,8 +59,8 @@
             <v-row>
               <v-col cols="10">
                 <v-select
-                  label="เลือกประเภทลูกค้า"
-                  prepend-icon= "mdi mdi-football"
+                  label="เลือกประเภทผู้ใช้บริการ"
+                  prepend-icon= "mdi-account-box"
                   outlined
                   v-model="payment.customertypeId"
                   :items="customerType"
@@ -59,16 +69,15 @@
                   :rules="[(v) => !!v || 'Item is required']"
                   required
                 ></v-select>
-                <p>{{cusprice}}</p>
               </v-col>
             </v-row>
            
             <v-row>
               <v-col cols="10">
                 <v-select
-                  label="เลือกช่วงเวลา"
+                  label="เลือกช่วงระยะเวลา"
                   outlined
-                  prepend-icon= "mdi mdi-clock"
+                  prepend-icon= "mdi-calendar-clock"
                   v-model="payment.timerangeId"
                   :items="timeRange"
                   item-text="timerangename"
@@ -77,16 +86,15 @@
                   required
                   style ="margin-top:-30px"
                 ></v-select>
-               
-              </v-col>
+               </v-col>
             </v-row>
             
             <v-row justify="center">
               <v-col cols="10">
                 <v-btn-toggle group >
-                  <v-btn @click="savePayment" style="color:#FFFFFF" :class="{ black: !valid, green: valid } ">บันทึก</v-btn>
+                  <v-btn @click="savePayment" style="color:#FFFFFF" :class="{ black: !valid, green: valid } ">ยืนยัน</v-btn>
                   <v-btn @click="clear" color="#D50000" style="color:#FFFFFF">ยกเลิก</v-btn>
-                  <v-btn @click="viewReserve" color="#000000" style="color:#FFFFFF">ดูบันทึก</v-btn>
+                  <v-btn @click="viewReserve" color="#0000FF" style="color:#FFFFFF">ดูผลการชำระเงิน</v-btn>
                 </v-btn-toggle>
               </v-col>
             </v-row>
@@ -105,8 +113,6 @@ export default {
     },
    data () {
     return { 
-      date: new Date().toISOString().substr(0, 10),
-      menu: false,
        payment: {
         customerId: null,
         customertypeId: null,
@@ -185,7 +191,7 @@ export default {
         )
         .then(response => {
           console.log(response);
-          alert("ทำรายการสำเร็จ");
+          alert("บันทึกข้อมูลการชำระเงินสำเร็จ !!");
           this.$router.push("/viewpayment");
         })
         .catch(e => {
@@ -207,7 +213,7 @@ export default {
       this.timeRange();
       this.employee();
     }
-    /* eslint-enable no-console */
+    
   },
   mounted() {
       this.customerType();
