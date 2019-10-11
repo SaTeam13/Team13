@@ -43,20 +43,24 @@ public class SportEquipmentController {
         }
 
 
-        @PostMapping("/sportEquipment/{employeename}/{typeequipmentid}/{type}")
+        @PostMapping("/sportEquipment/{employeename}/{typeequipmentid}/{equipment}/{typestatus}/{number}")
         public SportEquipment newsportEquipment(SportEquipment newsportEquipment,
                 @PathVariable Long employeename, //edit
                 @PathVariable Long typeequipmentid,
-                @PathVariable Long type //edit
+                @PathVariable Long typestatus, //edit
+                @PathVariable String equipment,
+                @PathVariable Integer number
                 ) {
                     
                     Employee employee = employeeRepository.findByEmployeeid(employeename); //edit
                     TypeEquipment typeEquipment = typeEquipmentRepository.findByTypeequipmentid(typeequipmentid);
-                    Status status = statusRepository.findBystatusid(type);//edit
+                    Status status = statusRepository.findBystatusid(typestatus);//edit
 
                     newsportEquipment.setEmployeeid(employee); //edit
                     newsportEquipment.setTypeequipmentid(typeEquipment);
-                    newsportEquipment.setType(status);
+                    newsportEquipment.setEquipment(equipment);
+                    newsportEquipment.setTypestatus(status);
+                    newsportEquipment.setNumber(number);
                     return sportEquipmentRepository.save(newsportEquipment);
 
             }

@@ -27,7 +27,7 @@ public class Status {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="status_SEQ")  
     @Column(name="STATUS_ID",unique = true, nullable = true)
     private @NonNull Long statusid;
-    private @NonNull String type;
+    private @NonNull String typestatus;
 
   
 }

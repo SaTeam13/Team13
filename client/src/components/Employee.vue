@@ -14,14 +14,14 @@
               <v-text-field
                 v-model="employee.nameInfo"
                 :rules="[(v) => !!v || 'Item is required']"
-                label="Name"
+                label="ชื่อพนักงาน"
                 required
               ></v-text-field>
             </v-col>
 
             <v-col cols="10">
                 <v-select
-                  label="Gender"
+                  label="เพศ"
                   v-model="employee.genderid"
                   :items="gender"
                   item-text="sex"
@@ -35,7 +35,7 @@
               <v-text-field
                 v-model="employee.idcard"
                 :rules="[(v) => !!v || 'Item is required']"
-                label="ID Card Number"
+                label="เลขบัตรประชาชน"
                 required
               ></v-text-field>
             </v-col>
@@ -44,14 +44,14 @@
               <v-text-field
                 v-model="employee.address"
                 :rules="[(v) => !!v || 'Item is required']"
-                label="Address"
+                label="ที่อยู่"
                 required
               ></v-text-field>
             </v-col>
 
             <v-col cols="10">
                 <v-select
-                  label="Province"
+                  label="จังหวัด"
                   v-model="employee.provinceid"
                   :items="province"
                   item-text="provincename"
@@ -65,14 +65,14 @@
               <v-text-field
                 v-model="employee.phone"
                 :rules="[(v) => !!v || 'Item is required']"
-                label="Telephone"
+                label="โทร."
                 required
               ></v-text-field>
             </v-col>
 
             <v-col cols="10">
                 <v-select
-                  label="Position"
+                  label="ตำแหน่ง"
                   v-model="employee.positionid"
                   :items="position"
                   item-text="positionlevel"
@@ -84,7 +84,7 @@
 
             <v-col cols="10">
                 <v-select
-                  label="Bank"
+                  label="บัญชีธนาคาร"
                   v-model="employee.bankid"
                   :items="bank"
                   item-text="bankname"
@@ -98,7 +98,7 @@
               <v-text-field
                 v-model="employee.banknum"
                 :rules="[(v) => !!v || 'Item is required']"
-                label="Bank Number"
+                label="เลขที่บัญชี"
                 required
               ></v-text-field>
             </v-col>
@@ -145,18 +145,22 @@ export default {
   data() {
     return {
       employee: {
-        nameInfo: "",
-        genderid: "",
-        idcard: "",
-        address: "",
-        provinceid: "",
-        phone: "",
-        positionid: "",
-        bankid: "",
-        banknum: "",
-        user: "",
-        pass: ""
+        nameInfo: null,
+        genderid: null,
+        idcard: null,
+        address: null,
+        provinceid: null,
+        phone: null,
+        positionid: null,
+        bankid: null,
+        banknum: null,
+        user: null,
+        pass: null
       },
+      gender:null,
+      province:null,
+      position:null,
+      bank:null,
        valid: false
     };
   },
@@ -240,15 +244,15 @@ export default {
             this.employee.pass,
           this.employee
         )
-        // .then(response => {
-        //   console.log(response);
-        //   this.$router.push("/viewemployee");
-        // })
-        // .catch(e => {
-        //   console.log(e);
-        // });
+        .then(response => {
+          console.log(response);
+          alert("บันทึกสำเร็จ");
+          this.$router.push("/viewemployee");
+        })
+        .catch(e => {
+          console.log(e);
+        });
       this.submitted = true;
-      alert("Complet")
     },
     cancel() {
       this.$refs.form.reset();

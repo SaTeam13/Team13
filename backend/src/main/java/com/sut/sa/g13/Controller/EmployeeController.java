@@ -1,13 +1,17 @@
 package com.sut.sa.g13.Controller;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.sut.sa.g13.Entity.*;
 import com.sut.sa.g13.Repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +35,11 @@ public class EmployeeController {
         public Collection<Employee> employee(){
             return employeeRepository.findAll().stream().collect(Collectors.toList());
         }
+        @GetMapping("/employee/{id}")
+        public Optional<Employee> employee(@PathVariable Long id) {
+            Optional<Employee> employee = employeeRepository.findById(id);
+        return employee;
+        }
 
         @GetMapping("/gender")
         public Collection<Gender> gender(){
@@ -51,6 +60,15 @@ public class EmployeeController {
         public Collection<Bank> bank(){
             return bankRepository.findAll().stream().collect(Collectors.toList());
         }
+
+        @DeleteMapping("/employee/{id}")
+	    public ResponseEntity<String> deleteemployee(@PathVariable("id") long id) {
+		System.out.println("Delete employee with ID = " + id + "...");
+
+		employeeRepository.deleteById(id);
+
+		return new ResponseEntity<>("employee has been deleted!", HttpStatus.OK);
+	    }
 
         @PostMapping("/employee/{nameInfo}/{genderid}/{idcard}/{address}/{provinceid}/{phone}/{positionid}/{bankid}/{banknum}/{user}/{pass}")
         public Employee newEmployee(Employee newEmployee,

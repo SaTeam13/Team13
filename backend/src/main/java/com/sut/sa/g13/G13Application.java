@@ -128,7 +128,7 @@ public class G13Application {
 
 	 		Stream.of("พร้อมใช้งาน", "กำลังใช้งาน", "ทั้งหมด..").forEach(type -> {
 	 			Status status = new Status(); 
-	 			status.setType(type); 
+	 			status.setTypestatus(type); 
 	 			statusRepository.save(status); 
 			 });
 			 

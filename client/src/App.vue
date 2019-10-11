@@ -12,6 +12,7 @@
       <v-btn @click="Customer" color="#00E676" style="color:#000000">สมัครสมาชิก</v-btn>
       <v-btn @click="Employee" color="#76FF03" style="color:#000000">ข้อมูลพนักงาน</v-btn>
       <v-btn @click="Payment" color="#00E676" style="color:#000000">ชำระเงินค่าสมาชิก</v-btn>
+      <v-btn @click="SportEquipment" color="#76FF03" style="color:#000000">ข้อมูลอุปกรณ์</v-btn>
       </v-btn-toggle>
       
       </v-row>
@@ -43,6 +44,9 @@
     },
   Payment(){
       this.$router.push("/paymentmember");
+    },
+    SportEquipment(){
+      this.$router.push("/sportequipment");
     },
     },
 };

@@ -39,7 +39,7 @@ public class SportEquipment {
 
     @ManyToOne
     @JoinColumn(name = "STATUS")
-    private Status type;
+    private Status typestatus;
 
 
 

@@ -235,15 +235,15 @@ export default {
           this.Borrow
         )
        .then(response => {
-         console.log(response);
-       })
+          console.log(response);
+          alert("บันทึกสำเร็จ");
+          this.$router.push("/viewborrow");
+        })
         .catch(e => {
           console.log(e);
         });
-        
       this.submitted = true;
-      alert("บันทึกสำเร็จ")
-      },
+    },
       clear(){
             this.Borrow.nameborrow='';
             this.Borrow.numberequipment='';

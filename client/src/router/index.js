@@ -9,6 +9,11 @@ import Employee from '../components/Employee';
 import PaymentMember from '../components/PaymentMember';
 import viewPayment from '../components/viewPayment';
 import Login from '../components/Login';
+import viewEmployee from '../components/viewEmployee';
+import viewBorrow from '../components/viewBorrow';
+import sportEquipment from '../components/sportEquipment';
+import viewSportEquipment from '../components/viewSportEquipment';
+
 Vue.use(router);
 
 export default new router({
@@ -49,6 +54,22 @@ export default new router({
         {
             path: '/viewpayment',
             component: viewPayment
+        },
+        {
+            path: '/viewemployee',
+            component: viewEmployee
+        },
+        {
+            path: '/viewborrow',
+            component: viewBorrow
+        },
+        {
+            path: '/sportequipment',
+            component: sportEquipment
+        },
+        {
+            path: '/viewsportequipment',
+            component: viewSportEquipment
         },
         
     ]

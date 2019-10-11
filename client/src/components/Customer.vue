@@ -97,13 +97,16 @@ export default {
   data() {
     return {
       customer: {
-        customername: "",
-        genderid: "",
-        address: "",
-        province: "",
-        telephone: "",
-        categoryid: ""
+        customername: null,
+        genderid: null,
+        address: null,
+        provinceid: null,
+        telephone: null,
+        categoryid: null
       },
+      gender:null,
+      province:null,
+      category:null,
       valid: false
     };
   },

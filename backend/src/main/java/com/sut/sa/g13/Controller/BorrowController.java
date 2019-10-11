@@ -4,7 +4,9 @@ import com.sut.sa.g13.Entity.*;
 import com.sut.sa.g13.Repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Optional;
 //import java.sql.Timestamp;
 //import java.util.Optional;
 import java.util.stream.Collectors;
@@ -50,10 +53,20 @@ public class BorrowController {
     public Collection<Borrow> getborrow() {
         return borrowRepository.findAll().stream().collect(Collectors.toList());
     }
-    @GetMapping(path = "/borrow/{borrowId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Borrow getOneBorrow(@PathVariable long borrowId){
-        return borrowRepository.findById(borrowId).get();
-    }
+    @GetMapping("/borrow/{id}")
+        public Optional<Borrow> borrow(@PathVariable Long id) {
+            Optional<Borrow> borrow = borrowRepository.findById(id);
+        return borrow;
+        }
+
+    @DeleteMapping("/borrow/{id}")
+	    public ResponseEntity<String> deleteborrow(@PathVariable("id") long id) {
+		System.out.println("Delete borrow with ID = " + id + "...");
+
+		borrowRepository.deleteById(id);
+
+		return new ResponseEntity<>("borrow has been deleted!", HttpStatus.OK);
+	    }
    
 
     @PostMapping(path ="/Borrow/{nameborrow}/{numberequipment}/{dateyyyymmdd}/{empselect}/{eqmselect}/{typeeqmselect}")
