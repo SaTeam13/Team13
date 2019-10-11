@@ -91,7 +91,7 @@ public class G13Application {
 			});
 
 			// Customers name 
-			Stream.of("ธนาธร", "ประยุทธ์", "ประวิตร", "ชวน").forEach(customername -> {
+			Stream.of("นายประหยัด จันทร์อังคาร", "นายทักทาย ชินนะยะ").forEach(customername -> {
 				Customer customer = new Customer(); 
 				customer.setCustomername(customername); 
 				customerRepository.save(customer); 

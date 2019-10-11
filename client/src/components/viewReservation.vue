@@ -3,7 +3,7 @@
     <v-layout text-center wrap>
       <v-flex mb-4>
         <br />
-        <h1 class="display-1 font-weight-bold mb-3">Payment Member</h1>
+        <h1 class="display-1 font-weight-bold mb-3">Reservation</h1>
       </v-flex>
     </v-layout>
     <v-row justify="center">
@@ -24,18 +24,18 @@
             <v-col cols="3">
               <v-text-field
                 outlined
-                label="ต้องการลบ Payment ID: "
+                label="ต้องการลบ ID การจองที่: "
                 prepend-icon= "mdi mdi-delete-forever"
-                v-model="payment.paymentId"
+                v-model="reservation.reservationId"
               ></v-text-field>
-                 <p v-if="paymentCheck != ''">  Payment ที่ต้องการลบ : {{paymentId}}
-                        <v-btn @click="deletePayments" color="#D50000" style="color:#FFFFFF" >ลบ</v-btn>
+                 <p v-if="reservationCheck != ''">ID การจองที่จะทำการลบ : {{reservationId}}
+                        <v-btn class="" @click="deleteReservation" color="#D50000" style="color:#FFFFFF" >ลบ</v-btn>
                  </p>
               </v-col>
             
             <v-col cols="2">
               <div class="">
-                <v-btn @click="findPayments" depressed large color="#0000FF" style="color:#FFFFFF;">ยืนยัน</v-btn>
+                 <v-btn @click="findReservation" depressed large color="#000000" style="color:#FFFFFF;">ยืนยัน</v-btn>
               </div>
             </v-col>
           </v-row>
@@ -46,41 +46,41 @@
 <script>
 import http from "../http-common";
 export default {
-  name: "viewPayment",
+  name: "viewreservation",
   data() {
     return {
       search: '',
       headers: [
         
         {
-          text: "Payment ID",
+         text: "ID การจอง",
           align: "left",
           sortable: false,
-          value: "paymentid"
+          value: "reservationid"
 
         },
-        { text: "ID ผู้ใช้บริการ", value: "customerid.customerid" },
-        { text: "ชื่อผู้ใช้บริการ", value: "customerid.customername" },
-        { text: "ประเภทผู้ใช้บริการ", value: "customertypeid.customertypename" },
-        { text: "ช่วงระยะเวลา", value: "timerangeid.timerangename" },
-        { text: "วันที่ทำรายการ", value: "payDate" },
-        { text: "ทำรายการโดย", value: "employeeid.employeename" },
+        { text: "ID ผู้ใช้บริการ", value: "customer.customerid" },
+        { text: "ชื่อ ผู้ใช้บริการ", value: "customer.customername" },
+        { text: "สนามที่จอง", value: "fieldcategory.field" },
+        { text: "วันที่จอง", value: "reservedate" },
+        { text: "เวลาที่จอง", value: "timetable.timeString" },
+        { text: "ทำรายการโดย", value: "employee.employeename" },
         
       ],
       items: [],
-       payment: {
-        paymentId: null,
+      reservation: {
+        reservationId: null,
       },
       valid: false,
-      paymentCheck: false,
-      paymentId: null,
+      reservationCheck: false,
+      reservationId: null,
     };
   },
   methods: {
     /* eslint-disable no-console */
-    getPayments() {
+     getReservations() {
       http
-        .get("/paymentmember")
+        .get("/reservation")
         .then(response => {
           this.items = response.data;
           console.log(this.items);
@@ -89,14 +89,14 @@ export default {
           console.log(e);
         });
     },
-    findPayments() {
+     findReservation() {
       http
-        .get("/paymentmember/" + this.payment.paymentId)
+        .get("/reservation/" + this.reservation.reservationId)
         .then(response => {
           console.log(response);
           if (response.data != null) {
-            this.paymentId = response.data.paymentid;
-            this.paymentCheck = response.status;
+            this.reservationId = response.data.reservationid;
+            this.reservationCheck = response.status;
           } else {
             this.clear()
           }          
@@ -106,13 +106,13 @@ export default {
         });
       this.submitted = true;
     },
-    deletePayments() {
+    deleteReservation() {
       http
-        .delete("/paymentmember/" + this.payment.paymentId)
+        .delete("/reservation/" + this.reservation.reservationId)
         .then(response => {
           console.log(response.data);
           this.$emit("refreshData");
-          alert("ทำการลบรายการชำระเงินเรียบร้อย");
+          alert("ทำการลบรายการจองเรียบร้อย");
           location.reload();
         })
         .catch(e => {
@@ -120,12 +120,12 @@ export default {
         });
     },
     refreshList() {
-      this.getPayments();
+      this.getReservations();
     }
     /* eslint-disable no-console */
   },
   mounted() {
-    this.getPayments();
+      this.getReservations();
   }
 };
 </script>
