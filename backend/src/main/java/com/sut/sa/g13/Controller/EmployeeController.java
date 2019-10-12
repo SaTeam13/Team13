@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EmployeeController {
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
     @Autowired
     private GenderRepository genderRepository;
     @Autowired
@@ -31,6 +31,10 @@ public class EmployeeController {
     @Autowired
     private BankRepository bankRepository;
 
+    EmployeeController(EmployeeRepository employeeRepository){
+        this.employeeRepository = employeeRepository;
+    }
+
         @GetMapping("/employee")
         public Collection<Employee> employee(){
             return employeeRepository.findAll().stream().collect(Collectors.toList());
@@ -39,6 +43,11 @@ public class EmployeeController {
         public Optional<Employee> employee(@PathVariable Long id) {
             Optional<Employee> employee = employeeRepository.findById(id);
         return employee;
+        }
+        @GetMapping("/check/{username}/{passoword}")
+        public Collection<Employee> getCheck(@PathVariable("username") String username,
+                                            @PathVariable("passoword") String password) {
+            return employeeRepository.findCheck(username,password);
         }
 
         @GetMapping("/gender")

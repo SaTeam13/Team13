@@ -8,12 +8,12 @@ import viewCustomer from '../components/viewCustomer';
 import Employee from '../components/Employee';
 import PaymentMember from '../components/PaymentMember';
 import viewPayment from '../components/viewPayment';
-import Login from '../components/Login';
+import Home from '../components/Home';
 import viewEmployee from '../components/viewEmployee';
 import viewBorrow from '../components/viewBorrow';
 import sportEquipment from '../components/sportEquipment';
 import viewSportEquipment from '../components/viewSportEquipment';
-
+import Login from '../components/Login';
 Vue.use(router);
 
 export default new router({
@@ -22,6 +22,10 @@ export default new router({
     routes: [{
         path: '/',
         component: Login
+        },
+        {
+            path: '/home',
+            component: Home
         },
         {
             path: '/borrow',
@@ -71,6 +75,7 @@ export default new router({
             path: '/viewsportequipment',
             component: viewSportEquipment
         },
+        
         
     ]
 });

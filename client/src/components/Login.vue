@@ -1,74 +1,93 @@
 <template>
-  <v-app id="inspire">
-    <v-content>
-      <v-container
-        class="fill-height"
-        fluid
-      >
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-col
-            cols="12"
-            sm="8"
-            md="4"
-          >
-            <v-card class="elevation-12">
-              <v-toolbar
-                color="primary"
-                dark
-                flat
-              >
-                <v-toolbar-title>Login form</v-toolbar-title>
-                <div class="flex-grow-1"></div>
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on }">
-                  </template>
-                  <span>Source</span>
-                </v-tooltip>
-                <v-tooltip right>
-                  <template v-slot:activator="{ on }">
-                  </template>
-                  <span>Codepen</span>
-                </v-tooltip>
-              </v-toolbar>
-              <v-card-text>
-                <v-form>
-                  <v-text-field
-                    label="Login"
-                    name="login"
-                    type="text"
-                  ></v-text-field>
+  <v-container>
+    <br />
+    <br />
+    <br />
+    <v-card max-width="700" class="mx-auto">
+      <v-system-bar color="#00C853"></v-system-bar>
+      <v-system-bar color="#00E676"></v-system-bar>
+      <v-row justify="center">
+        <v-toolbar-title>
+          <h1>Employee Login</h1>
+        </v-toolbar-title>
+      </v-row>
 
-                  <v-text-field
-                    id="password"
-                    label="Password"
-                    name="password"
-                    type="password"
-                  ></v-text-field>
+      <v-row justify="center">
+        <v-col cols="5">
+          <v-text-field
+            solo
+            label="Username"
+            v-model="user"
+            :rules="[(v) => !!v || 'This field is required']"
+            required
+            clearable
+            prepend-icon="mdi-account"
+          ></v-text-field>
+        </v-col>
+      </v-row>
 
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <div class="flex-grow-1"></div>
-                <v-btn color="primary">Login</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-content>
-  </v-app>
+      <v-row justify="center">
+        <v-col cols="5">
+          <v-text-field
+            solo
+            label="PASSWORD"
+            v-model="pass"
+            type="password"
+            prepend-icon="mdi-lock"
+            required
+            counter
+            clearable
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+      <v-btn @click="Login">Login</v-btn>
+      </v-row>
+
+      <br />
+      <br />
+      <v-system-bar color="#00E676"></v-system-bar>
+      <v-system-bar color="#00C853"></v-system-bar>
+    </v-card>
+  </v-container>
 </template>
 
+
+
 <script>
-  export default {
-    props: {
-      source: String,
+import http from "../http-common";
+
+export default {
+  name: "login",
+  data() {
+    return {
+      user: "",
+      pass: ""
+    };
+  },
+  methods: {
+    /* eslint-enable no-console */
+    Login() {
+      http
+        .get("/check/" + this.user + "/" + this.pass)
+        .then(response => {
+          // eslint-disable-next-line no-console
+          console.log(response);
+          if (response.data[0] != null) {
+            this.$router.push("/home");
+          } else {
+            alert("ไม่ถูกต้อง");
+          }
+        })
+        .catch(e => {
+          // eslint-disable-next-line no-console
+          console.log(e);
+        });
+      this.submitted = true;
     },
-    data: () => ({
-      drawer: null,
-    }),
-  }
+    refreshList() {}
+    /* eslint-enable no-console */
+  },
+  mounted() {}
+};
 </script>

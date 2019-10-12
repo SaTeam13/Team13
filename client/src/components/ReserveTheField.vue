@@ -1,4 +1,23 @@
 <template>
+<v-container>
+<v-app-bar style = "background: white;" app>
+      <v-toolbar-title  class="headline text-uppercase" >
+        <span class="font-weight">SportStaduim</span>   
+      </v-toolbar-title>
+      <v-row justify="center" style="margin-right:190px">
+      <v-btn-toggle group>
+      <v-btn @click="pushReserve" color="#00E676" style="color:#000000">จองสนาม</v-btn>
+      <v-btn @click="pushBorrow" color="#76FF03" style="color:#000000">ยืมอุปกรณ์</v-btn>
+      <v-btn @click="pushCustomer" color="#00E676" style="color:#000000">สมัครสมาชิก</v-btn>
+      <v-btn @click="pushEmployee" color="#76FF03" style="color:#000000">ข้อมูลพนักงาน</v-btn>
+      <v-btn @click="pushPayment" color="#00E676" style="color:#000000">ชำระเงินค่าสมาชิก</v-btn>
+      <v-btn @click="pushSportEquipment" color="#76FF03" style="color:#000000">ข้อมูลอุปกรณ์</v-btn>
+      </v-btn-toggle>
+      
+      </v-row>
+  </v-app-bar>
+  
+<v-card style="width:70%; margin:auto; background-color:#FFFFFF">
   <v-container>
     <v-layout text-center wrap>
       <v-flex mb-4>
@@ -9,7 +28,7 @@
     </v-layout>
     
     <v-row justify="center">
-      <v-col cols="4">
+      <v-col cols="5">
         <v-form v-model="valid" ref="form">
           <v-row justify="center">
             <v-col cols="10">
@@ -21,7 +40,7 @@
                 :rules="[(v) => !!v || 'Item is required']"
                 required
               ></v-text-field>
-              <p v-if="customerCheck != ''">ยินดีตอนรับคุณ : {{customerName}}</p>
+              <p v-if="customerCheck != ''">ชื่อผู้ใช้บริการ : {{customerName}}</p>
             </v-col>
             <v-col cols="2">
               <div class="my-2">
@@ -36,7 +55,7 @@
                   label="พนักงานที่ทำรายการ"
                   prepend-icon= "mdi mdi-account-card-details"
                   clearable
-                  v-model="reservation.employees"
+                  v-model="reservation.employeeId"
                   :items="employees"
                   item-text="employeename"
                   item-value="employeeid"
@@ -52,7 +71,7 @@
                   label="เลือกประเภทสนาม"
                   prepend-icon= "mdi mdi-football"
                   clearable
-                  v-model="reservation.fieldCategorys"
+                  v-model="reservation.fieldCategoryId"
                   :items="fieldCategorys"
                   item-text="field"
                   item-value="fieldid"
@@ -92,7 +111,7 @@
                   label="เลือกเวลาจองสนาม"
                   clearable
                   prepend-icon= "mdi mdi-clock"
-                  v-model="reservation.timeTables"
+                  v-model="reservation.timeTableId"
                   :items="timeTables"
                   item-text="timeString"
                   item-value="timetableid"
@@ -117,6 +136,8 @@
       </v-col>
     </v-row>
   </v-container>
+  </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -131,9 +152,9 @@ export default {
       menu: false,
        reservation: {
         customerId: null,
-        fieldCategorys: null,
-        timeTables: null,
-        employees: null
+        fieldCategoryId: null,
+        timeTableId: null,
+        employeeId: null
       },
       fieldCategorys: null,
       timeTables: null,
@@ -203,11 +224,11 @@ export default {
         .post("/reservation/" +
             this.reservation.customerId +
             "/" +
-            this.reservation.fieldCategorys +
+            this.reservation.fieldCategoryId +
             "/" +
-            this.reservation.timeTables +
+            this.reservation.timeTableId +
             "/" +
-            this.reservation.employees +
+            this.reservation.employeeId +
             "/" +
              this.date,
           this.reservation
@@ -231,12 +252,31 @@ export default {
      
      this.customerCheck = false;
     },
+    pushReserve(){
+      this.$router.push("/reservation");
+    },
+    pushBorrow(){
+      this.$router.push("/borrow");
+    },
+    pushCustomer(){
+      this.$router.push("/customer");
+    },
+    pushEmployee(){
+      this.$router.push("/employee");
+    },
+    pushPayment(){
+      this.$router.push("/paymentmember");
+    },
+    pushSportEquipment(){
+      this.$router.push("/sportequipment");
+    },
 
     refreshList() {
       this.getFieldCategorys();
       this.getTimeTables();
       this.getEmployees();
     }
+    
     /* eslint-enable no-console */
   },
   mounted() {
